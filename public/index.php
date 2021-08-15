@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "\\..\\vendor\\autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 
 $router = new AltoRouter;
 
@@ -16,7 +16,7 @@ if (array_key_exists('BASE_URI', $_SERVER)) {
 // <-- Chemin vers la page d'accueil -->                                                                        
 $router->map(
     'GET', 
-    '/home', 
+    '/', 
     [
     'method' => 'home',
     'controller' => 'MainController'

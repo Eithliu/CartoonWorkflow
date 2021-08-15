@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\CoreModel;
+use App\Utils\Database;
+use PDO;
 
 class Plan extends CoreModel
 {
@@ -12,10 +14,34 @@ class Plan extends CoreModel
     private $description;
     private $project_id;
 
+    public static function findAll()
+    {
+        $sql= 'SELECT * FROM `project`
+        INNER JOIN `plan` ON `project`.`id` = `plan`.`project_id`
+        ';
+
+        $pdo = Database::getPDO();
+        $pdoStatement = $pdo->query($sql);
+        
+        return $pdoStatement->fetchAll(PDO::FETCH_CLASS, Plan::class);
+    }
+
+    public static function find($id)
+    {
+        $sql='SELECT *, `plan`.`id` as `planId` FROM `project`
+        INNER JOIN `plan` ON `project`.`id` = `plan`.`project_id`
+        WHERE `plan`.`id` =' . $id;
+
+        $pdo = Database::getPDO();
+        $pdoStatement = $pdo->query($sql);
+
+        return $pdoStatement->fetchObject(Plan::class);
+    }
+
     /**
      * Get the value of duree
      */ 
-    public function getDuree()
+    public function getDuree(): int
     {
         return $this->duree;
     }
@@ -25,7 +51,7 @@ class Plan extends CoreModel
      *
      * @return  self
      */ 
-    public function setDuree($duree)
+    public function setDuree(int $duree): self
     {
         $this->duree = $duree;
 
@@ -35,7 +61,7 @@ class Plan extends CoreModel
     /**
      * Get the value of numero
      */ 
-    public function getNumero()
+    public function getNumero(): int
     {
         return $this->numero;
     }
@@ -45,7 +71,7 @@ class Plan extends CoreModel
      *
      * @return  self
      */ 
-    public function setNumero($numero)
+    public function setNumero(int $numero): self
     {
         $this->numero = $numero;
 
@@ -55,7 +81,7 @@ class Plan extends CoreModel
     /**
      * Get the value of image_number
      */ 
-    public function getImage_number()
+    public function getImage_number(): int
     {
         return $this->image_number;
     }
@@ -65,7 +91,7 @@ class Plan extends CoreModel
      *
      * @return  self
      */ 
-    public function setImage_number($image_number)
+    public function setImage_number(int $image_number): self
     {
         $this->image_number = $image_number;
 
@@ -75,7 +101,7 @@ class Plan extends CoreModel
     /**
      * Get the value of description
      */ 
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -85,7 +111,7 @@ class Plan extends CoreModel
      *
      * @return  self
      */ 
-    public function setDescription($description)
+    public function setDescription(?string $description): ?self
     {
         $this->description = $description;
 
@@ -95,7 +121,7 @@ class Plan extends CoreModel
     /**
      * Get the value of project_id
      */ 
-    public function getProject_id()
+    public function getProject_id(): int
     {
         return $this->project_id;
     }
@@ -105,7 +131,7 @@ class Plan extends CoreModel
      *
      * @return  self
      */ 
-    public function setProject_id($project_id)
+    public function setProject_id(int $project_id): self
     {
         $this->project_id = $project_id;
 

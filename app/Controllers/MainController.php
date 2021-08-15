@@ -9,7 +9,7 @@ class MainController extends CoreController
     function home()
     {
         $allProjects = Project::findAll();
-
+        
 
         $this->show('home', ['allProjects' => $allProjects]);
     }
