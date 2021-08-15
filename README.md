@@ -4,7 +4,7 @@ Une petite appli pour gérer son workflow dans la création d'un dessin animé.
 
 ## Création d'un projet
 
-    Créer son projet de desisn animé, en choisissant le nombre de plans.
+Créer son projet de dessin animé, en choisissant le nombre de plans.
 
 ## Création de plans
 
