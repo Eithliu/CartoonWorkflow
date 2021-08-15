@@ -2,11 +2,16 @@
 
 namespace App\Controllers;
 
+use App\Models\Project;
+
 class MainController extends CoreController
 {
     function home()
     {
-        $this->show('home');
+        $allProjects = Project::findAll();
+
+
+        $this->show('home', ['allProjects' => $allProjects]);
     }
 }
 
