@@ -43,6 +43,16 @@ $router->map(
     ],
     'plan-list');
 
+// <-- Chemin vers un plan par id -->
+$router->map(
+    'GET',
+    '/plans/[i:id]',
+    [
+        'method' => 'planById',
+        'controller' => 'PlanController'
+    ],
+    'plan-planById');
+
 $match = $router->match();
 
 

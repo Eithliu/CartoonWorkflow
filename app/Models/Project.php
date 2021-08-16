@@ -31,6 +31,7 @@ class Project extends CoreModel
 
     public static function findAll()
     {
+        global $router;
         $sql= 'SELECT * FROM `project`';
 
         $pdo = Database::getPDO();

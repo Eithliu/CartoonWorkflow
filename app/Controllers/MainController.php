@@ -8,6 +8,7 @@ class MainController extends CoreController
 {
     function home()
     {
+      
         $allProjects = Project::findAll();
         
 

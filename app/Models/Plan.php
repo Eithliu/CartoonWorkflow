@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Models;
 
 use App\Models\CoreModel;
 use App\Utils\Database;
@@ -28,14 +28,16 @@ class Plan extends CoreModel
 
     public static function find($id)
     {
+        $pdo = Database::getPDO();
+
         $sql='SELECT *, `plan`.`id` as `planId` FROM `project`
         INNER JOIN `plan` ON `project`.`id` = `plan`.`project_id`
-        WHERE `plan`.`id` =' . $id;
+        WHERE `plan`.`id` = :id';
 
-        $pdo = Database::getPDO();
-        $pdoStatement = $pdo->query($sql);
+        $pdoStatement = $pdo->prepare($sql);
+        $result = $pdoStatement->execute([':id' => $id]);
 
-        return $pdoStatement->fetchObject(Plan::class);
+        return $result->fetchObject(Plan::class);
     }
 
     /**
