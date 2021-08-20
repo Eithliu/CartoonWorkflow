@@ -1,25 +1,25 @@
 <main>
-    <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <?php foreach ($viewData['allPlans'] as $plan) : ?>
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <a href="<?= $router->generate('plan-planById', ['id' => $plan->getId()]) ?>">
-                                <img src="<?= 'http://localhost/perso/CartoonWkf/CartoonWorkflow/app/views/assets/images/Plan_' . $plan->getImage_number() . '.jpg' ?>" alt="" class="card-img">
-                                <div class="d-flex justify-content-left align-items-center rounded">
-                                    <h5 class="card-text text-dark text-center">
-                                        Durée : <?= $plan->getDuree() ?> (en images)
-                                    </h5>
-                                </div>
-                                <h5 class="card-text text-dark text-left">
-                                    Plan N° <?= $plan->getImage_number() ?>
-                                </h5>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+    <section class="section">Projet </section>
+    <?php foreach ($viewData['allPlans'] as $plan) : ?>
+        <div class="card columns is-mobile">
+
+            <div class="card-header ">
+                <h5 class="card-header-title">
+                    # <?= $plan->getProject_id(); ?> Plan N° <?= $plan->getNumero(); ?>
+                </h5>
+            </div>
+            <div class="card-image">
+                <a href="<?= $router->generate('plan-planById', ['id' => $plan->getId()]) ?>">
+                    <img src="<?= 'http://localhost/perso/CartoonWkf/CartoonWorkflow/app/views/assets/images/Plan_' . $plan->getImage_number() . '.jpg' ?>" alt="" class="image" width="256px">
+                </a>
+            </div>
+            <div class="card-content">
+                <h5 class="content">
+                    Durée : <?= $plan->getDuree() ?>  images
+                </h5>
+            </div>
+
+
         </div>
-    </div>
+    <?php endforeach; ?>
 </main>

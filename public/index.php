@@ -23,25 +23,43 @@ $router->map(
     ], 
 'main-home');
 
-// <-- Chemin vers la page des projets -->
+// <-- Chemin vers la création des projets -->
 $router->map(
     'GET',
-    '/projets',
+    '/projet/new',
     [
-        'method' => 'projectList',
+        'method' => 'projectDisplayForm',
         'controller' => 'ProjectController'
     ],
-    'project-list');
+    'project-projectDisplayForm');
+
+$router->map(
+    'POST',
+    '/projet/new',
+    [
+        'method' => 'projectActionForm',
+        'controller' => 'ProjectController'
+    ],
+    'project-projectActionForm');
 
 // <-- Chemin vers la page des plans -->
 $router->map(
     'GET',
-    '/plans',
+    '/project/[i:id]/plans',
     [
         'method' => 'planList',
         'controller' => 'PlanController'
     ],
-    'plan-list');
+    'plan-planList');
+
+$router->map(
+    'GET',
+    '/plans/new',
+    [
+        'method' => 'planDisplayForm',
+        'controller' => 'PlanController'
+    ],
+    'plan-planDisplayForm');
 
 // <-- Chemin vers un plan par id -->
 $router->map(
@@ -53,8 +71,9 @@ $router->map(
     ],
     'plan-planById');
 
-$match = $router->match();
 
+
+$match = $router->match();
 
 if (is_array($match)) {
     

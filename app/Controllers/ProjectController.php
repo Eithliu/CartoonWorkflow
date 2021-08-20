@@ -3,15 +3,35 @@
 namespace App\Controllers;
 
 use App\Models\Project;
+use App\Models\Plan;
 
 
 class ProjectController extends CoreController
 {
-    public function projectList()
+    public function projectDisplayForm()
     {
-        $allProjects = Project::findAll();
+        $this->show('project-add');
+    }
 
-        $this->show('projectList', ['allProjects' => $allProjects]);
+    public function projectActionForm()
+    {
+        $newName = filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING);
+
+        $newProject = new Project();
+        $newProject->setName($newName);
+
+        $newProject->save();
+        
+        $lastProjectId = $newProject->getId();
+        $newPlans = new Plan();
+        $newPlans->setProject_id($lastProjectId);
+        
+        $newPlans->save();
+        global $router;
+        header('location: ' . $router->generate('plan-planDisplayForm'));
+        exit();
+        
+        
     }
 
 }

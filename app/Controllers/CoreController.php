@@ -12,4 +12,11 @@ class CoreController
         require_once __DIR__ . '/../views/header.tpl.php';
         require_once __DIR__ . '/../views/' . $viewName . '.tpl.php';
     }
+
+    //TODO concevoir la méthode __construct 
+
+    public function __construct()
+    {
+        
+    }
 }
