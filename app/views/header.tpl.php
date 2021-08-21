@@ -15,6 +15,7 @@
   <ul>
     <li><a href="<?= $router->generate('main-home') ?>">Accueil</a></li>
     <li><a href="<?= $router->generate('project-projectDisplayForm') ?>">Créer un nouveau projet</a></li>
+    <li><a href="#">Ajouter un nouveau plan</a></li>
   </ul>
 </nav>
 </head>

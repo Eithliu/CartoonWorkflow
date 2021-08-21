@@ -11,6 +11,7 @@ class PlanController extends CoreController
     {
         $project = Project::find($id);
         $allPlans = Plan::findEverything($id);
+
         
         $this->show('plan-list', [
             'allPlans' => $allPlans,
@@ -21,11 +22,31 @@ class PlanController extends CoreController
     public function planById($id)
     {
         $planInfos = Plan::find($id);
+        $projects = Project::findAll();
+        
+        
+        // ça affiche le bon nom de projet quand on 
+        // affiche la liste de plans.
+        // Mais, dans la page de détails d'un plan
+        // ça utilise l'id du plan pour aller chercher l'id
+        // du projet, du coup, ça renvoie pas au bon endroit.
+        
+        $planProjectId = $planInfos->getProject_id();
+        
+        foreach ($projects as $project) {
+                $projectId = $project->getId();
+            
+                if ($projectId === $planProjectId) {
+                       $project;
+                    }
+                
+                }
+                
         $project = Project::find($id);
 
         $this->show('plan-detail', [
             'planInfos' => $planInfos,
-            'project' => $project
+            'project' => $project,
         ]);
     }
 

@@ -13,7 +13,7 @@
                     </h5>
                 </div>
                 <div class="card-image is-48x48">
-                    <a href="<?= $router->generate('plan-planById', ['id' => $plan->getimage_number()]) ?>">
+                    <a href="<?= $router->generate('plan-planById', ['id' => $plan->planId]) ?>">
                         <img src="<?= $absoluteUrl . 'assets/images/Plan_' . $plan->getImage_number() . '.jpg' ?>" alt="" width="512px">
                     </a>
                 </div>

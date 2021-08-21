@@ -31,6 +31,18 @@ class Project extends CoreModel
         return $this;
     }
 
+    public static function findEverything($id)
+    {
+        $sql= 'SELECT * FROM `project`
+        INNER JOIN `plan` ON `project`.`id` = `plan`.`project_id`
+        WHERE `project`.`id`=' . $id['id'];
+        
+        $pdo = Database::getPDO();
+        $pdoStatement = $pdo->query($sql);
+        return $pdoStatement->fetchAll(PDO::FETCH_CLASS, Project::class);
+    }
+
+
     public static function find($id)
     {
         $pdo = Database::getPDO();

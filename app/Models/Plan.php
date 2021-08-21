@@ -16,7 +16,7 @@ class Plan extends CoreModel
 
     public static function findEverything($id)
     {
-        $sql= 'SELECT * FROM `plan`
+        $sql= 'SELECT *, `plan`.`id` as `planId` FROM `plan`
         INNER JOIN `project` ON `project`.`id` = `plan`.`project_id`
         WHERE `project`.`id`=' . $id['id'];
         
