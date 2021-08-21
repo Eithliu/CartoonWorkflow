@@ -1,25 +1,29 @@
 <main>
-    <section class="section">Projet </section>
-    <?php foreach ($viewData['allPlans'] as $plan) : ?>
-        <div class="card columns is-mobile">
-
-            <div class="card-header ">
-                <h5 class="card-header-title">
-                    # <?= $plan->getProject_id(); ?> Plan N° <?= $plan->getNumero(); ?>
-                </h5>
-            </div>
-            <div class="card-image">
-                <a href="<?= $router->generate('plan-planById', ['id' => $plan->getId()]) ?>">
-                    <img src="<?= 'http://localhost/perso/CartoonWkf/CartoonWorkflow/app/views/assets/images/Plan_' . $plan->getImage_number() . '.jpg' ?>" alt="" class="image" width="256px">
-                </a>
-            </div>
-            <div class="card-content">
-                <h5 class="content">
-                    Durée : <?= $plan->getDuree() ?>  images
-                </h5>
-            </div>
-
-
+    <section class="section columns is-mobile">
+        <div class="card-header">
+            <h1 class="card-header-title is-3">Projet <?= $viewData['project']->getName() ?></h1>
+            <button class="button is-white"><a href="<?= $router->generate('main-home') ?>">Retour</a></button>
         </div>
-    <?php endforeach; ?>
+        <?php foreach ($viewData['allPlans'] as $plan): ?>
+            <div class="card">
+
+                <div class="card-header columns is-mobile">
+                    <h5 class="card-header-title is-centered">
+                        Plan #<?= $plan->getImage_number(); ?>
+                    </h5>
+                </div>
+                <div class="card-image is-48x48">
+                    <a href="<?= $router->generate('plan-planById', ['id' => $plan->getimage_number()]) ?>">
+                        <img src="<?= $absoluteUrl . 'assets/images/Plan_' . $plan->getImage_number() . '.jpg' ?>" alt="" width="512px">
+                    </a>
+                </div>
+                <div class="card-content">
+                    <h5 class="content">
+                        Durée : <?= $plan->getDuree() ?> images
+                    </h5>
+                </div>
+
+            </div>
+        <?php endforeach; ?>
+    </section>
 </main>

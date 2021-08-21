@@ -4,15 +4,12 @@
             <div class="card-content is-mobile">
                 <div class="media">
                     <div class="media-content">
-                        <p class="title is-4">Project # <?= $project->getId() . ' ' . $project->getName() ?></p>
+                        <p class="title is-4"><a href="<?= $router->generate('plan-planList', ['id' => $project->getId()]) ?>">Project #<?= $project->getId() . ' ' . $project->getName() ?></a></p>
                     </div>
                 </div>
 
                 <div class="content">
-                    <?= $project->getDescription() !== null ? $project->getDescription() : 'Pas de description ici' ?>
-                    <button class="button">
-                        <a href="<?= $router->generate('plan-planList') ?>">Voir les plans</a>
-                    </button>
+                    <?= $project->getSubtitle() !== null ? $project->getSubtitle() : 'Pas de description ici' ?>
                 </div>
             </div>
         <?php endforeach; ?>

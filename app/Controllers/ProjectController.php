@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Plan;
 
 
+
 class ProjectController extends CoreController
 {
     public function projectDisplayForm()
@@ -16,22 +17,29 @@ class ProjectController extends CoreController
     public function projectActionForm()
     {
         $newName = filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING);
+        $newSubtitle = filter_input(INPUT_POST, "subtitle", FILTER_SANITIZE_STRING);
+        $newNbreDePlans = filter_input(INPUT_POST, "nbredeplans", FILTER_SANITIZE_STRING);
 
         $newProject = new Project();
         $newProject->setName($newName);
+        $newProject->setSubtitle($newSubtitle);
+        $newProject->setNbredeplans($newNbreDePlans);
+
 
         $newProject->save();
         
         $lastProjectId = $newProject->getId();
-        $newPlans = new Plan();
-        $newPlans->setProject_id($lastProjectId);
+        // Je veux récupérer mon Project_id pour pouvoir
+        // l'injecter dans la table Plan, en même temps
+        // que je créé des nouveaux plans.
         
-        $newPlans->save();
-        global $router;
-        header('location: ' . $router->generate('plan-planDisplayForm'));
-        exit();
-        
-        
+
+
+        $this->show('plans-add', [
+            'id' => $$lastProjectId,
+            'newProject' => $newProject
+        ]);
+
     }
 
 }

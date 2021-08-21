@@ -13,22 +13,16 @@ class Plan extends CoreModel
     private $image_number;
     private $description;
     private $project_id;
-    private $nombredeplans;
 
     public static function findEverything($id)
     {
         $sql= 'SELECT * FROM `plan`
         INNER JOIN `project` ON `project`.`id` = `plan`.`project_id`
-        WHERE `project`.`id` = :id
-        ';
-
-        $pdo = Database::getPDO();
-        $pdoStatement = $pdo->prepare($sql);
-        $request = $pdoStatement->execute([
-            ':id' => $id
-        ]);
+        WHERE `project`.`id`=' . $id['id'];
         
-        return $pdoStatement->fetchObject(Plan::class);
+        $pdo = Database::getPDO();
+        $pdoStatement = $pdo->query($sql);
+        return $pdoStatement->fetchAll(PDO::FETCH_CLASS, Plan::class);
     }
 
     public static function findAll()
@@ -38,9 +32,8 @@ class Plan extends CoreModel
         ';
 
         $pdo = Database::getPDO();
-        $pdoStatement = $pdo->prepare($sql);
-        $request = $pdoStatement->execute();
-        
+        $pdoStatement = $pdo->query($sql);
+
         return $pdoStatement->fetchAll(PDO::FETCH_CLASS, Plan::class);
     }
 
@@ -48,23 +41,50 @@ class Plan extends CoreModel
     {
         $pdo = Database::getPDO();
 
-        $sql='SELECT *, `plan`.`id` as `planId` 
+        $sql='SELECT * 
         FROM `project`
         INNER JOIN `plan`
         ON `project`.`id` = `plan`.`project_id`
-        WHERE `plan`.`id` = :id';
+        WHERE `plan`.`id` =' . $id['id'];
+    
 
-        $pdoStatement = $pdo->prepare($sql);
-        $result = $pdoStatement->execute([
-            ':id' => $id
-        ]);
 
-        return $result->fetchObject(Plan::class);
+        $pdoStatement = $pdo->query($sql);
+
+        
+
+
+        return $pdoStatement->fetchObject(Plan::class);
     }
 
     public function insert()
     {
+        $pdo = Database::getPDO();
 
+        $sql = 'INSERT INTO `plan` (`duree`, `image_number`, `description`, `project_id`)
+        VALUES (
+            :duree,
+            :image_number,
+            :description,
+            :project_id
+        )';
+
+        $request = $pdo->prepare($sql);
+                
+        $insertedRows = $request->execute([
+            ':duree' => $this->getDuree(),
+            ':image_number' => $this->getImage_number(),
+            ':description' => $this->getDescription(),
+            ':project_id' => $this->getProject_id()
+
+        ]);
+
+        if ($insertedRows > 0) {
+            $this->id = $pdo->lastInsertId();
+            return true;
+        }
+        
+        return false;
     }
 
     public function update()
@@ -72,6 +92,10 @@ class Plan extends CoreModel
 
     }
 
+    public function create()
+    {
+
+    }
     /**
      * Get the value of duree
      */ 
@@ -172,23 +196,4 @@ class Plan extends CoreModel
         return $this;
     }
 
-    /**
-     * Get the value of nombredeplans
-     */ 
-    public function getNombredeplans()
-    {
-        return $this->nombredeplans;
-    }
-
-    /**
-     * Set the value of nombredeplans
-     *
-     * @return  self
-     */ 
-    public function setNombredeplans($nombredeplans)
-    {
-        $this->nombredeplans = $nombredeplans;
-
-        return $this;
-    }
 }

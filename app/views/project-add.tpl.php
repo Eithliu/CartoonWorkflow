@@ -7,15 +7,15 @@
       </div>
     </div>
     <div class="field">
-      <label for="description" class="label">Description du projet</label>
+      <label for="subtitle" class="label">Description du projet</label>
       <div class="control">
-        <input class="input" type="text" value="" name="description" placeholder="Un film où JCVD court à la plage">
+        <input class="input" type="text" value="" name="subtitle" placeholder="Un film où JCVD court à la plage">
       </div>
     </div>
     <div class="field">
-      <label for="howmanyplans" class="label">Nombre de plans voulus</label>
+      <label for="nbredeplans" class="label">Nombre de plans voulus</label>
       <div class="control">
-        <input class="input" type="number" value="" name="howmanyplans" placeholder="24">
+        <input class="input" type="number" value="" name="nbredeplans" placeholder="24">
       </div>
     </div>
     <div class="field is-grouped">

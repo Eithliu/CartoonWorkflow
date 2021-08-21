@@ -8,7 +8,8 @@ use PDO;
 class Project extends CoreModel
 {
     private $name;
-    private $description;
+    private $subtitle;
+    private $nbredeplans;
 
     /**
      * Get the value of name
@@ -35,16 +36,14 @@ class Project extends CoreModel
         $pdo = Database::getPDO();
 
 
-        $sql = 'SELECT * FROM `project` WHERE `id` = :id';
+        $sql = 'SELECT * FROM `project` WHERE `id` =' . $id['id'];
 
-        $pdoStatement = $pdo->prepare($sql);
-        $request = $pdoStatement->execute([
-            ':id' => $id
-        ]);
+        $pdoStatement = $pdo->query($sql);
 
 
 
-        return $request->fetchObject('App\Models\Project');
+
+        return $pdoStatement->fetchObject('App\Models\Project');
     }
 
     public static function findAll()
@@ -68,17 +67,19 @@ class Project extends CoreModel
     {
         $pdo = Database::getPDO();
 
-        $sql = 'INSERT INTO `project` (`name`, `description`)
+        $sql = 'INSERT INTO `project` (`name`, `subtitle`, `nbredeplans`)
         VALUES (
             :name,
-            :description
+            :subtitle,
+            :nbredeplans
         )';
 
         $request = $pdo->prepare($sql);
                 
         $insertedRows = $request->execute([
             ':name' => $this->getName(),
-            ':description' => $this->getDescription()
+            ':subtitle' => $this->getSubtitle(),
+            ':nbredeplans' => $this->getNbredeplans()
 
         ]);
 
@@ -91,21 +92,41 @@ class Project extends CoreModel
     }
 
     /**
-     * Get the value of description
+     * Get the value of subtitle
      */ 
-    public function getDescription()
+    public function getSubtitle()
     {
-        return $this->description;
+        return $this->subtitle;
     }
 
     /**
-     * Set the value of description
+     * Set the value of subtitle
      *
      * @return  self
      */ 
-    public function setDescription($description)
+    public function setSubtitle($subtitle)
     {
-        $this->description = $description;
+        $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nbredeplans
+     */ 
+    public function getNbredeplans()
+    {
+        return $this->nbredeplans;
+    }
+
+    /**
+     * Set the value of nbredeplans
+     *
+     * @return  self
+     */ 
+    public function setNbredeplans($nbredeplans)
+    {
+        $this->nbredeplans = $nbredeplans;
 
         return $this;
     }

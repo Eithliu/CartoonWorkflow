@@ -9,22 +9,23 @@ class PlanController extends CoreController
 {
     public function planList($id)
     {
-        // J'ai besoin de récupérer l'id dernier projet créé
-        // pour ensuite l'utiliser dans l'argument de mon findAll
-        // et ainsi .. rien du tout, parce que j'ai besoin du nom du projet
+        $project = Project::find($id);
         $allPlans = Plan::findEverything($id);
-
+        
         $this->show('plan-list', [
-            'allPlans' => $allPlans
+            'allPlans' => $allPlans,
+            'project' => $project
         ]);
     }
-
+    
     public function planById($id)
     {
         $planInfos = Plan::find($id);
+        $project = Project::find($id);
 
         $this->show('plan-detail', [
-            'planInfos' => $planInfos
+            'planInfos' => $planInfos,
+            'project' => $project
         ]);
     }
 
@@ -37,4 +38,51 @@ class PlanController extends CoreController
         ]);
 
     }
+
+    public function planActionForm($lastProjectId)
+    {
+
+        $newDuree = filter_input(INPUT_POST, "duree", FILTER_SANITIZE_STRING);
+        $newNumero = filter_input(INPUT_POST, "numero", FILTER_SANITIZE_STRING);
+        $newImage_number = filter_input(INPUT_POST, "image_number", FILTER_SANITIZE_STRING);
+        $newDescription = filter_input(INPUT_POST, "description", FILTER_SANITIZE_STRING);
+        $newProject_id = $lastProjectId;
+
+        $plansToSend = [
+            'duree' => $newDuree,
+            'numero' => $newNumero,
+            'imagenbre' => $newImage_number,
+            'description' => $newDescription,
+            'project_id' => $newProject_id
+        ];
+
+
+        foreach ($plansToSend as $newPlan) {
+
+            $newPlan = new Plan();
+            $newPlan->setDuree($newDuree);
+            $newPlan->setNumero($newNumero);
+            $newPlan->setImage_number($newImage_number);
+            $newPlan->setDescription($newDescription);
+            $newPlan->setProject_id($newProject_id);
+        
+            $newPlan->insert();
+        }
+
+
+
+        
+
+    }
+
+    public function planDisplayFormAll($projectId)
+    {
+        $projectInfos = Project::find($projectId);
+
+        $this->show('plans-add', [
+            "projectInfos" => $projectInfos
+        ]);
+    }
+
+
 }

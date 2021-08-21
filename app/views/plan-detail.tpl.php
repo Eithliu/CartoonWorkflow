@@ -1,20 +1,22 @@
-<main>
-    <h2 class="text-center text-white">Détails de <?= $viewData['planInfos']->getName() ?></h2>
-
-    <div class="blocContainer">
-
-        <div class="blocGauche">
-            <img src="<?= $absoluteUrl . 'images/' . $viewData['planInfos']->getImage_number() . '.jpg' ?>" alt="">
+<main class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-header-title">Détails du plan # <?= $viewData['planInfos']->getImage_number() ?></h2>
         </div>
-        <div class="blocDroite">
-
-            <div class="text">
-                <h2 class="text-left"><?= 'Plan #' . $viewData['planInfos']->getImage_number() . ' Durée : ' . $viewData['planInfos']->getDuree() ?></h2>
-            </div>
-
-            <div class="labelprogress">
-                <label for="file">Description</label>
-                <p class="num"><?= $viewData['planInfos']->getDescription() ?></p>
+        
+        <div class="section">
+            <div class="card columns is-mobile">
+                <div class="card-image">
+                    <img src="<?= $absoluteUrl . 'assets/images/Plan_' . $viewData['planInfos']->getImage_number() . '.jpg' ?>" alt="">
+                </div>
+<?php dump($viewData['project']); ?>
+                <div class="card-content is-mobile">
+                    <h2 class="title is-5"><?= 'Plan #' . $viewData['planInfos']->getImage_number() ?>
+                    <p class="subtitle is-6">Durée : <?= $viewData['planInfos']->getDuree() . ' images' ?></p>
+                    <p class="title is-5">Description : </label>
+                    <p class="content"><?= ' ' . $viewData['planInfos']->getDescription() ?></p>
+                    <button class="button is-white"><a href="<?= $router->generate('plan-planList', ['id' => $viewData['project']->getId()]) ?>">Retour</a></button>
+                </div>
             </div>
         </div>
     </div>
