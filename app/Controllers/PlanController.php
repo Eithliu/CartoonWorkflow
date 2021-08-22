@@ -21,15 +21,11 @@ class PlanController extends CoreController
     
     public function planById($id)
     {
+        
         $planInfos = Plan::find($id);
         $projects = Project::findAll();
         
         
-        // ça affiche le bon nom de projet quand on 
-        // affiche la liste de plans.
-        // Mais, dans la page de détails d'un plan
-        // ça utilise l'id du plan pour aller chercher l'id
-        // du projet, du coup, ça renvoie pas au bon endroit.
         
         $planProjectId = $planInfos->getProject_id();
         
@@ -50,60 +46,54 @@ class PlanController extends CoreController
         ]);
     }
 
-    public function planDisplayForm()
+    public function planDisplayForm($id)
     {
-        $plansInfos = Plan::findAll();
+
+        $project = Project::find($id);
+        $projects = Project::findAll();
+
 
         $this->show('plans-add', [
-            'planInfos' => $plansInfos
+            'project' => $project,
+            'projects' => $projects
         ]);
 
     }
 
-    public function planActionForm($lastProjectId)
+    public function planActionForm($id)
     {
-
+        $projectChosen = $id['id'];
         $newDuree = filter_input(INPUT_POST, "duree", FILTER_SANITIZE_STRING);
-        $newNumero = filter_input(INPUT_POST, "numero", FILTER_SANITIZE_STRING);
-        $newImage_number = filter_input(INPUT_POST, "image_number", FILTER_SANITIZE_STRING);
+        $newImage_number = filter_input(INPUT_POST, "image_number", FILTER_SANITIZE_STRING);;
+        $newNumero = $newImage_number;
         $newDescription = filter_input(INPUT_POST, "description", FILTER_SANITIZE_STRING);
-        $newProject_id = $lastProjectId;
-
+        
         $plansToSend = [
-            'duree' => $newDuree,
-            'numero' => $newNumero,
-            'imagenbre' => $newImage_number,
+            'duree' => intval($newDuree),
+            'numero' => intval($newImage_number),
+            'image_number' => intval($newImage_number),
             'description' => $newDescription,
-            'project_id' => $newProject_id
+            'project_id' => intval($projectChosen)
         ];
-
+        
 
         foreach ($plansToSend as $newPlan) {
 
             $newPlan = new Plan();
-            $newPlan->setDuree($newDuree);
-            $newPlan->setNumero($newNumero);
-            $newPlan->setImage_number($newImage_number);
-            $newPlan->setDescription($newDescription);
-            $newPlan->setProject_id($newProject_id);
+            $newPlan->setDuree($plansToSend['duree']);
+            $newPlan->setNumero($plansToSend['numero']);
+            $newPlan->setImage_number($plansToSend['numero']);
+            $newPlan->setDescription($plansToSend['description']);
+            $newPlan->setProject_id($plansToSend['project_id']);
         
-            $newPlan->insert();
         }
-
-
-
         
+        $newPlan->insert();
+
+        $this->show('plan-list', ['id' => $id]);
 
     }
 
-    public function planDisplayFormAll($projectId)
-    {
-        $projectInfos = Project::find($projectId);
-
-        $this->show('plans-add', [
-            "projectInfos" => $projectInfos
-        ]);
-    }
 
 
 }

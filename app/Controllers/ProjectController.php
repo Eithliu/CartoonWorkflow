@@ -33,12 +33,14 @@ class ProjectController extends CoreController
         // l'injecter dans la table Plan, en même temps
         // que je créé des nouveaux plans.
         
+        global $router;
+        header('location: ' . $router->generate('plan-planDisplayForm'));
+        exit();
 
-
-        $this->show('plans-add', [
-            'id' => $$lastProjectId,
-            'newProject' => $newProject
-        ]);
+        // $this->show('plans-add', [
+        //     'id' => $lastProjectId,
+        //     'newProject' => $newProject
+        // ]);
 
     }
 

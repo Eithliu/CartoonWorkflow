@@ -11,7 +11,6 @@ class MainController extends CoreController
       
         $allProjects = Project::findAll();
         
-
         $this->show('home', ['allProjects' => $allProjects]);
     }
 }

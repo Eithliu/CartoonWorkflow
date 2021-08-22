@@ -42,29 +42,30 @@ $router->map(
     ],
     'project-projectActionForm');
 
+// <-- Chemin vers la liste complete des plans d'un projet.
+    $router->map(
+        'GET',
+        '/plans/projet/[i:id]',
+        [
+            'method' => 'planList',
+            'controller' => 'PlanController'
+        ],
+        'plan-planList'
+    );
+    
+// <-- Chemin vers la création des plans-->
 $router->map(
     'GET',
-    '/plans/projet/[i:id]',
+    '/projet/[i:id]/plans/new',
     [
-        'method' => 'planList',
+        'method' => 'planDisplayForm',
         'controller' => 'PlanController'
     ],
-    'plan-planList'
-);
-
-// <-- Chemin vers la page des plans après la création d'un projet-->
-$router->map(
-    'GET',
-    '/project/[i:id]/plans/new',
-    [
-        'method' => 'planDisplayFormAll',
-        'controller' => 'PlanController'
-    ],
-    'plan-planDisplayFormAll');
+    'plan-planDisplayForm');
 
 $router->map(
     'POST',
-    '/project/[i:id]/plans/new',
+    '/projet/[i:id]/plans/new',
     [
         'method' => 'planActionForm',
         'controller' => 'PlanController'

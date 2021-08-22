@@ -13,9 +13,13 @@
 
     <nav class="section breadcrumb" aria-label="breadcrumbs">
   <ul>
-    <li><a href="<?= $router->generate('main-home') ?>">Accueil</a></li>
+    <li><a href="<?= $router->generate('main-home') ?>" class="has-text-black">Accueil</a></li>
     <li><a href="<?= $router->generate('project-projectDisplayForm') ?>">Créer un nouveau projet</a></li>
-    <li><a href="#">Ajouter un nouveau plan</a></li>
+    <?php if ($viewData['project'] !== null) {?>
+    <li><a href="<?= $router->generate('plan-planDisplayForm', ['id' => $viewData['project']->getId()])?>">Ajouter un nouveau plan</a></li>
+    <?php } else {
+      echo '<li></li>';
+    }?>
   </ul>
 </nav>
 </head>

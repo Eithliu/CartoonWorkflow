@@ -47,7 +47,6 @@ class Project extends CoreModel
     {
         $pdo = Database::getPDO();
 
-
         $sql = 'SELECT * FROM `project` WHERE `id` =' . $id['id'];
 
         $pdoStatement = $pdo->query($sql);

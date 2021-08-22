@@ -14,7 +14,7 @@
                     <p class="subtitle is-6">Durée : <?= $viewData['planInfos']->getDuree() . ' images' ?></p>
                     <p class="title is-5">Description : </label>
                     <p class="content"><?= ' ' . $viewData['planInfos']->getDescription() ?></p>
-                    <button class="button is-white"><a href="<?= $router->generate('plan-planList', ['id' => $viewData['planInfos']->getProject_id()]) ?>">Retour</a></button>
+                    <button class="button is-white has-text-black mr-1"><a href="<?= $router->generate('plan-planList', ['id' => $viewData['planInfos']->getProject_id()]) ?>" class="has-text-danger">Retour</a></button>
                 </div>
             </div>
         </div>

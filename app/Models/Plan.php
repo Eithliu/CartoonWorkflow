@@ -18,8 +18,8 @@ class Plan extends CoreModel
     {
         $sql= 'SELECT *, `plan`.`id` as `planId` FROM `plan`
         INNER JOIN `project` ON `project`.`id` = `plan`.`project_id`
-        WHERE `project`.`id`=' . $id['id'];
-        
+        WHERE `project`.`id`=' . $id['id']  . ' ORDER BY `image_number`';
+
         $pdo = Database::getPDO();
         $pdoStatement = $pdo->query($sql);
         return $pdoStatement->fetchAll(PDO::FETCH_CLASS, Plan::class);
@@ -109,7 +109,7 @@ class Plan extends CoreModel
      *
      * @return  self
      */ 
-    public function setDuree(int $duree): self
+    public function setDuree(int $duree)
     {
         $this->duree = $duree;
 
@@ -119,7 +119,7 @@ class Plan extends CoreModel
     /**
      * Get the value of numero
      */ 
-    public function getNumero()
+    public function getNumero(): int
     {
         return $this->numero;
     }
@@ -149,7 +149,7 @@ class Plan extends CoreModel
      *
      * @return  self
      */ 
-    public function setImage_number(int $image_number): self
+    public function setImage_number(int $image_number)
     {
         $this->image_number = $image_number;
 
@@ -179,7 +179,7 @@ class Plan extends CoreModel
     /**
      * Get the value of project_id
      */ 
-    public function getProject_id(): int
+    public function getProject_id()
     {
         return $this->project_id;
     }
@@ -189,7 +189,7 @@ class Plan extends CoreModel
      *
      * @return  self
      */ 
-    public function setProject_id(int $project_id): self
+    public function setProject_id($project_id)
     {
         $this->project_id = $project_id;
 
