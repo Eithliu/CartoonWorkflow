@@ -1,3 +1,5 @@
+Attention : ce projet est en cours de développement ! Il n'est pas encore finalisé. :)
+
 # CartoonWorkflow
 
 Une petite appli pour gérer son workflow dans la création d'un dessin animé.
